@@ -14,7 +14,9 @@ class TodoController extends Controller
      */
     public function index()
     {
-        //
+        $todos = Todo::all();
+
+        return view('todo', ['todos' => $todos]);
     }
 
     /**
@@ -25,7 +27,11 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $todo = new Todo();
+        $todo->name = $request->input('name');
+        $todo->save();
+
+        return redirect()->action([TodoController::class, 'index']);
     }
 
     /**
@@ -59,6 +65,9 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        //
+        $deleted = Todo::find($todo->id);
+        $deleted->delete();
+
+        return redirect()->action([TodoController::class, 'index']);
     }
 }
