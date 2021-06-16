@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HelloController;
+use App\Http\Controllers\TodoController;
 use App\Models\User;
 
 /*
@@ -32,5 +33,7 @@ Route::get('/hello/{name?}', [HelloController::class, 'say'])
 Route::get('/users/{user}', function(Request $request, User $user) {
     return $user;
 })->name('users');
+
+Route::apiResource('todos', TodoController::class);
 
 require __DIR__.'/auth.php';
